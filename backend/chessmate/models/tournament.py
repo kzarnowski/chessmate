@@ -12,6 +12,9 @@ class Tournament(db.Model):
     end_date = Column('end_date', Date, nullable=False)
     admin_id = Column('admin_id', Integer, nullable=False)
 
+    def is_remove_allowed(self):
+        return True
+
     def __repr__(self):
         return f"Tournament: {self.id} {self.name}"
 

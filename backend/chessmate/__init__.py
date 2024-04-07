@@ -16,5 +16,8 @@ def create_app(config_mode):
 
     from .views.auth import auth_bp
     app.register_blueprint(auth_bp)
+
+    from .views.tournament import tournament_bp
+    app.register_blueprint(tournament_bp)
     
     return app

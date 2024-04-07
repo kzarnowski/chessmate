@@ -1,4 +1,3 @@
-import functools
 from flask import (Blueprint, g, request, session)
 from werkzeug.security import check_password_hash, generate_password_hash
 from ..models.base import db
@@ -64,15 +63,4 @@ def logout():
         return 'User is not logged in', 404
     session.clear()
     return '', 204
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return 401
-        return view(**kwargs)
-    return wrapped_view
-
-
     

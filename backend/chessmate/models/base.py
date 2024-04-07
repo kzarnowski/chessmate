@@ -5,4 +5,3 @@ class Base(DeclarativeBase):
     pass
 
 db = SQLAlchemy(model_class=Base)
-metadate = Base.metadata
