@@ -1,20 +1,20 @@
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS users CASCADE;
 
-CREATE TABLE user (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(20) UNIQUE NOT NULL,
+    password VARCHAR(256) NOT NULL
 );
 
 DROP TABLE IF EXISTS tournament;
 
 CREATE TABLE tournament (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT UNIQUE NOT NULL,
-    city TEXT NOT NULL,
-    country TEXT NOT NULL,
-    start_date TEXT NOT NULL,
-    end_date TEXT NOT NULL,
-    admin_id INTEGER NOT NULL,
-    FOREIGN KEY (admin_id) REFERENCES user (id)
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    city VARCHAR(20) NOT NULL,
+    country VARCHAR(20) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    admin_id INT NOT NULL,
+    FOREIGN KEY (admin_id) REFERENCES users (id)
 );
