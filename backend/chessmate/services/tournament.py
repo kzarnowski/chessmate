@@ -1,5 +1,6 @@
 from typing import List
 from ..models.tournament import Tournament
+from ..models.user import User
 from ..models.base import db
 
 def query_tournaments() -> List[Tournament]:
@@ -19,11 +20,13 @@ def create_tournament(tournament_data) -> Tournament:
     db.session.commit()
     return tournament
 
-def remove_tournament(tournament_id: int) -> None:
+def remove_tournament(tournament_id: int, user: User) -> None:
     tournament = db.session.query(Tournament).filter(Tournament.id == tournament_id).one_or_none()
+    print(tournament)
     if tournament is None:
         return #TODO: Error handling
-    if not tournament.is_remove_allowed():
+    if not tournament.is_remove_allowed(user):
+        print("remove not allowed")
         return #TODO: Error handling
     db.session.delete(tournament)
     db.session.commit()

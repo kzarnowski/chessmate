@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date
 from .base import db
+from .user import User
 
 class Tournament(db.Model):
     __tablename__ = 'tournament'
@@ -12,8 +13,8 @@ class Tournament(db.Model):
     end_date = Column('end_date', Date, nullable=False)
     admin_id = Column('admin_id', Integer, nullable=False)
 
-    def is_remove_allowed(self):
-        return True
+    def is_remove_allowed(self, user: User):
+        return user.id == self.admin_id
 
     def __repr__(self):
         return f"Tournament: {self.id} {self.name}"
