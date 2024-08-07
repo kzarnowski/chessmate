@@ -18,3 +18,23 @@ CREATE TABLE tournament (
     admin_id INT NOT NULL,
     FOREIGN KEY (admin_id) REFERENCES users (id)
 );
+
+DROP TABLE IF EXISTS players;
+
+CREATE TABLE players (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    tournament_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (tournament_id) REFERENCES tournament (id)
+);
+
+DROP TABLE IF EXISTS followers;
+
+CREATE TABLE followers (
+    user_id INT NOT NULL,
+    follower_id INT NOT NULL,
+    PRIMARY KEY (user_id, follower_id),
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (follower_id) REFERENCES users (id),
+);

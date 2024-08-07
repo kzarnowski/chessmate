@@ -1,7 +1,7 @@
 from flask import (Blueprint, g, request, session)
 from werkzeug.security import check_password_hash, generate_password_hash
 from ..models.base import db
-from ..models.user import User
+from ..models.user import AuthUser
 from ..schemas.auth import RegisterSchema, LoginSchema
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -13,7 +13,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = User.query.get(user_id)
+        g.user = AuthUser.query.get(user_id)
 
 
 @auth_bp.post('/register')
@@ -22,7 +22,7 @@ def register():
     username = register_data['username']
     password = register_data['password']
     try:
-        new_user = User(username=username, password=generate_password_hash(password))
+        new_user = AuthUser(username=username, password=generate_password_hash(password))
         db.session.add(new_user)
         db.session.commit()
     except db.IntegrityError as e:
@@ -35,7 +35,7 @@ def login():
     login_data = LoginSchema().load(request.json)
     username = login_data['username']
     password = login_data['password']
-    user = db.session.query(User).filter(User.username == username).one_or_none()
+    user = db.session.query(AuthUser).filter(AuthUser.username == username).one_or_none()
     if not user:
         return 'Incorrect username', 401
     elif user.id == session.get('user_id'):

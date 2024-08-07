@@ -19,5 +19,8 @@ def create_app(config_mode):
 
     from .views.tournament import tournament_bp
     app.register_blueprint(tournament_bp)
+
+    from .views.user import user_bp
+    app.register_blueprint(user_bp)
     
     return app

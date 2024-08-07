@@ -4,7 +4,7 @@ from ..schemas.tournament import TournamentSchema
 from ..models.user import User
 from .base import login_required
 
-tournament_bp = Blueprint('tournament', __name__, url_prefix="/tournaments")
+tournament_bp = Blueprint('tournament', __name__, url_prefix='/tournaments')
 
 @tournament_bp.get('/')
 def get_tournaments():
