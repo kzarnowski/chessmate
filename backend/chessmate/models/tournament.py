@@ -18,4 +18,3 @@ class Tournament(db.Model):
 
     def __repr__(self):
         return f"Tournament: {self.id} {self.name}"
-

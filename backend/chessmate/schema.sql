@@ -21,7 +21,7 @@ CREATE TABLE tournament (
 
 DROP TABLE IF EXISTS players;
 
-CREATE TABLE players (
+CREATE TABLE player (
     id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     tournament_id INT NOT NULL,
@@ -31,10 +31,10 @@ CREATE TABLE players (
 
 DROP TABLE IF EXISTS followers;
 
-CREATE TABLE followers (
-    user_id INT NOT NULL,
+CREATE TABLE follower (
+    following_id INT NOT NULL,
     follower_id INT NOT NULL,
-    PRIMARY KEY (user_id, follower_id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    PRIMARY KEY (following_id, follower_id),
+    FOREIGN KEY (following_id) REFERENCES users (id),
     FOREIGN KEY (follower_id) REFERENCES users (id),
 );

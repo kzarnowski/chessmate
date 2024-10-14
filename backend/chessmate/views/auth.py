@@ -53,4 +53,5 @@ def logout():
         return 'User is not logged in', 404
     session.clear()
     return '', 204
+
     

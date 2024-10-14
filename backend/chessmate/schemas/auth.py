@@ -7,11 +7,9 @@ class RegisterSchema(Schema):
         required=True,
         validate=validate.And(
             validate.Length(min=8, max=50),
-            validate.ContainsNoneOf(ascii_lowercase),
-            validate.ContainsNoneOf(ascii_uppercase)
         ),
         error_messages={
-            "validator_failed": "Password must have length of 8-50 characters and contain both lowercase and uppercase letters"
+            "validator_failed": "Password must have length of 8-50 characters"
         }
     )
 

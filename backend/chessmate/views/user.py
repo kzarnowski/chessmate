@@ -1,7 +1,9 @@
-from flask import Blueprint, jsonify
-from ..services.user import query_user, query_followers, query_following
+from flask import Blueprint, jsonify, request
+
+from chessmate.models.user import User
+from ..services.user import create_follower, query_user, query_followers, query_following
 from ..schemas.user import UserSchema
-from base import login_required
+from .base import login_required
 
 user_bp = Blueprint('user', __name__, url_prefix='/users')
 
@@ -24,7 +26,11 @@ def get_following(user_id: int):
 
 
 
-@user_bp.post('<int:user_id/follow')
+@user_bp.post('<int:user_id>/following')
 @login_required
-def post_follow(follower_id: int, user_id: int):
-    
+def post_follow(user: User, user_id: int):
+    if user.id != user_id:
+        pass #TODO: Error handling
+    following_id = request.json["following_id"]
+    create_follower(following_id, user_id)
+    return ''
