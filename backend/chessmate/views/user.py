@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 
 from chessmate.models.user import User
-from ..services.user import create_follower, query_user, query_followers, query_following
+from ..services.user import create_follower, query_user, query_followers, query_following, remove_follower
 from ..schemas.user import UserSchema
 from .base import login_required
 
@@ -28,9 +28,18 @@ def get_following(user_id: int):
 
 @user_bp.post('<int:user_id>/following')
 @login_required
-def post_follow(user: User, user_id: int):
+def post_following(user: User, user_id: int):
     if user.id != user_id:
         pass #TODO: Error handling
     following_id = request.json["following_id"]
-    create_follower(following_id, user_id)
+    create_follower(follower_id=user_id, following_id=following_id)
+    return ''
+
+
+@user_bp.delete('<int:user_id>/following/<int:following_id>')
+@login_required
+def delete_following(user: User, user_id: int, following_id: int):
+    if user.id != user_id:
+        pass #TODO: Error handling
+    remove_follower(follower_id=user_id, following_id=following_id)
     return ''
