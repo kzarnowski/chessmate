@@ -10,3 +10,11 @@ class TournamentSchema(Schema):
     start_date = fields.Date(format='iso', required=True, validate=start_date_validator, data_key="startDate")
     end_date = fields.Date(format='iso', required=True, data_key="endDate")
     admin_id = fields.Int(required=True, data_key="adminId")
+
+class EditTournamentSchema(TournamentSchema):
+    class Meta:
+        exclude = ('id', 'admin_id')
+
+    def __init__(self, *args, **kwargs):
+        kwargs['partial'] = True
+        super().__init__(*args, **kwargs)

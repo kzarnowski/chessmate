@@ -16,6 +16,19 @@ def query_players(tournament_id: int):
         return None #TODO: Error handling
     return players
 
+def query_player(player_id: int):
+    try:
+        player =  db.session.query(
+            Player.id,
+            User.id.label('user_id'),
+            User.username
+        ).join(
+            User, User.id == Player.user_id, isouter=True
+        ).one_or_none()
+    except SQLAlchemyError:
+        return None #TODO: Error handling
+    return player
+
 
 def create_player(user: User, tournament_id: int):
     new_player = Player(tournament_id=tournament_id, user_id=user.id)

@@ -31,16 +31,19 @@ def create_tournament(tournament_data) -> Tournament:
         return None #TODO: Error handling
     return tournament
 
-def remove_tournament(tournament_id: int, user: User) -> None:
-    tournament = db.session.query(Tournament).filter(Tournament.id == tournament_id).one_or_none()
-    print(tournament)
-    if tournament is None:
-        return #TODO: Error handling
-    if not tournament.is_remove_allowed(user):
-        print("remove not allowed")
-        return #TODO: Error handling
+def remove_tournament(tournament: Tournament, user: User) -> None:
     try:
         db.session.delete(tournament)
         db.session.commit()
     except SQLAlchemyError:
         return #TODO: Error handling
+
+def edit_tournament(tournament: Tournament, tournament_data: dict) -> Tournament:
+    try:
+        for field, value in tournament_data.items():
+            setattr(tournament, field, value)
+        db.session.commit()
+    except SQLAlchemyError as e:
+        print(e)
+        return #TODO: Error handling
+    return tournament

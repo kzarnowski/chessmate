@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Date
 from chessmate.models.base import db
 from chessmate.models.user import User
+from datetime import datetime
 
 class Tournament(db.Model):
     __tablename__ = 'tournament'
@@ -15,6 +16,9 @@ class Tournament(db.Model):
 
     def is_remove_allowed(self, user: User):
         return user.id == self.admin_id
+    
+    def is_edit_allowed(self, user: User):
+        return user.id == self.admin_id and datetime.today().date() < self.start_date
 
     def __repr__(self):
         return f"Tournament: {self.id} {self.name}"
