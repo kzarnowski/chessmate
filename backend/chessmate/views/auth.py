@@ -1,8 +1,8 @@
 from flask import (Blueprint, g, request, session)
 from werkzeug.security import check_password_hash, generate_password_hash
-from ..models.base import db
-from ..models.user import AuthUser
-from ..schemas.auth import RegisterSchema, LoginSchema
+from chessmate.models.base import db
+from chessmate.models.user import AuthUser
+from chessmate.schemas.auth import RegisterSchema, LoginSchema
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 

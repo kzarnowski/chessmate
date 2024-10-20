@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, request
 
 from chessmate.models.user import User
-from ..services.user import create_follower, query_user, query_followers, query_following, remove_follower
-from ..schemas.user import UserSchema
-from .base import login_required
+from chessmate.services.user import create_follower, query_user, query_followers, query_following, remove_follower
+from chessmate.schemas.user import UserSchema
+from chessmate.views.base import login_required
 
 user_bp = Blueprint('user', __name__, url_prefix='/users')
 

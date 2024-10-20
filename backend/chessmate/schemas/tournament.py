@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, validate
-from .validators import start_date_validator
+from chessmate.schemas.validators import start_date_validator
 
 
 class TournamentSchema(Schema):

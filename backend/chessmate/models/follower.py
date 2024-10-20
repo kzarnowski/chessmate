@@ -1,4 +1,4 @@
-from .base import db
+from chessmate.models.base import db
 from sqlalchemy import Column, Integer
 
 class Follower(db.Model):

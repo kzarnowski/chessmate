@@ -1,6 +1,6 @@
 from sqlalchemy import Integer, String, Column
-from .base import db
-from .follower import Follower
+from chessmate.models.base import db
+from chessmate.models.follower import Follower
 
 
 

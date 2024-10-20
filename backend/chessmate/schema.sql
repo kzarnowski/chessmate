@@ -27,6 +27,7 @@ CREATE TABLE player (
     tournament_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (tournament_id) REFERENCES tournament (id)
+    UNIQUE (user_id, tournament_id)
 );
 
 DROP TABLE IF EXISTS followers;

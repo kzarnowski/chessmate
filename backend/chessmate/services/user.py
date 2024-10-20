@@ -1,6 +1,6 @@
-from ..models.base import db
-from ..models.user import User
-from ..models.follower import Follower
+from chessmate.models.base import db
+from chessmate.models.user import User
+from chessmate.models.follower import Follower
 from typing import List
 
 

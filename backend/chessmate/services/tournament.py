@@ -1,23 +1,34 @@
 from typing import List
-from ..models.tournament import Tournament
-from ..models.user import User
-from ..models.base import db
+from chessmate.models.tournament import Tournament
+from chessmate.models.user import User
+from chessmate.models.base import db
+from sqlalchemy.exc import SQLAlchemyError
 
 def query_tournaments() -> List[Tournament]:
-    return db.session.query(Tournament).all()
+    try:
+        tournaments = db.session.query(Tournament).all()
+    except SQLAlchemyError:
+        return None #TODO: Error handling
+    return tournaments
 
 
 def query_tournament(tournament_id: int) -> Tournament:
-    tournament = db.session.query(Tournament).filter(Tournament.id == tournament_id).one_or_none()
+    try:
+        tournament = db.session.query(Tournament).filter(Tournament.id == tournament_id).one_or_none()
+    except SQLAlchemyError:
+        return None #TODO: Error handling
     if not tournament:
-        pass #TODO: Error handling
+        return None #TODO: Error handling
     return tournament
 
 
 def create_tournament(tournament_data) -> Tournament:
     tournament = Tournament(**tournament_data)
-    db.session.add(tournament)
-    db.session.commit()
+    try:
+        db.session.add(tournament)
+        db.session.commit()
+    except SQLAlchemyError:
+        return None #TODO: Error handling
     return tournament
 
 def remove_tournament(tournament_id: int, user: User) -> None:
@@ -28,5 +39,8 @@ def remove_tournament(tournament_id: int, user: User) -> None:
     if not tournament.is_remove_allowed(user):
         print("remove not allowed")
         return #TODO: Error handling
-    db.session.delete(tournament)
-    db.session.commit()
+    try:
+        db.session.delete(tournament)
+        db.session.commit()
+    except SQLAlchemyError:
+        return #TODO: Error handling

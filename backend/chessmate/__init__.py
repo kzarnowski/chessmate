@@ -18,6 +18,8 @@ def create_app(config_mode):
     app.register_blueprint(auth_bp)
 
     from .views.tournament import tournament_bp
+    from .views.player import player_bp
+    tournament_bp.register_blueprint(player_bp)
     app.register_blueprint(tournament_bp)
 
     from .views.user import user_bp

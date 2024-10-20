@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date
-from .base import db
-from .user import User
+from chessmate.models.base import db
+from chessmate.models.user import User
 
 class Tournament(db.Model):
     __tablename__ = 'tournament'
